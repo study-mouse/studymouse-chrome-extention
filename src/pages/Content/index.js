@@ -8,8 +8,9 @@ function selectHandler(e) {
 }
 
 function showIcon(e, text) {
+  removeIcon(e);
   let icon = document.createElement('div');
-  icon.classList.add('studyMouseIcon');
+  icon.id = 'studyMouseIcon';
 
   let targetRect = window.getSelection().getRangeAt(0).getBoundingClientRect();
   let x = e.pageX + window.scrollX - 13;
@@ -18,25 +19,26 @@ function showIcon(e, text) {
   icon.innerText = 'S2';
   icon.style.left = x + 'px';
   icon.style.top = y + 'px';
+
+  icon.addEventListener('mousedown', () => {
+    console.log('selected Text', text);
+    icon.remove();
+  });
+
   document.body.appendChild(icon);
-  document
-    .getElementsByClassName('studyMouseIcon')[0]
-    .addEventListener('click', () => {
-      console.log('hello');
-    });
 }
 
-function hideIcon() {
-  const icons = document.getElementsByClassName('studyMouseIcon');
-  for (let icon of icons) {
-    if (icon !== undefined) {
-      console.log('hide icon');
-      icon.remove();
-    }
+function removeIcon(e) {
+  const icon = document.getElementById('studyMouseIcon');
+  console.log('선택된 텍스트', document.getSelection().toString());
+
+  if (icon !== null && document.getSelection().toString() == '') {
+    console.log('hide icon');
+    icon.remove();
   }
 }
 
 document.addEventListener('mouseup', selectHandler);
-document.addEventListener('mousedown', hideIcon);
+document.addEventListener('mousedown', removeIcon);
 
 printLine('Study Mouse is always see your DOM');

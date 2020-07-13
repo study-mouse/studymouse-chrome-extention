@@ -1,4 +1,4 @@
-.studyMouseIcon {
+#studyMouseIcon {
   position: absolute;
   cursor: pointer;
   z-index: 2147483647;
@@ -13,7 +13,7 @@
   text-align: center;
   font-size: small;
 }
-.studyMouseIcon:hover {
+#studyMouseIcon:hover {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
   border: 1px solid #bbb;
 }
