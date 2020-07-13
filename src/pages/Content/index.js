@@ -1,21 +1,21 @@
 import { printLine } from './modules/print';
 
 function highlightHandler(e) {
-  console.log('drag start');
   let text = document.getSelection().toString();
+  console.log('e, text', e, text);
   if (text !== '') {
     showIcon(e);
   }
 }
 
 function showIcon(e) {
+  hideIcon();
   let icon = document.createElement('div');
   icon.classList.add('studyMouseIcon');
 
   let targetRect = window.getSelection().getRangeAt(0).getBoundingClientRect();
-  console.log('targetRect', targetRect);
-  let x = targetRect.left + window.scrollX;
-  let y = targetRect.top + targetRect.height + window.scrollY + 1;
+  let x = e.pageX + window.scrollX - 13;
+  let y = targetRect.top + targetRect.height + window.scrollY + 1 + 27; // border width 1 + google tranIcon height 27
 
   icon.innerText = 'S2';
   icon.style.left = x + 'px';
@@ -25,14 +25,16 @@ function showIcon(e) {
 }
 
 function hideIcon() {
-  let icon = document.getElementsByClassName('studyMouseIcon')[0];
-  if (icon !== undefined) {
-    console.log('icon', icon);
-    // icon.remove();
+  let icons = document.getElementsByClassName('studyMouseIcon');
+  for (let icon of icons) {
+    if (icon !== undefined) {
+      console.log('hide icon');
+      icon.remove();
+    }
   }
 }
 
-document.addEventListener('dragend', highlightHandler);
-// document.addEventListener('click', hideIcon);
+document.addEventListener('mouseup', highlightHandler);
+document.addEventListener('mousedown', hideIcon);
 
 printLine('Study Mouse is always see your DOM');
