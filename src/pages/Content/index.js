@@ -1,15 +1,13 @@
 import { printLine } from './modules/print';
 
-function highlightHandler(e) {
+function selectHandler(e) {
   let text = document.getSelection().toString();
-  console.log('e, text', e, text);
   if (text !== '') {
-    showIcon(e);
+    showIcon(e, text);
   }
 }
 
-function showIcon(e) {
-  hideIcon();
+function showIcon(e, text) {
   let icon = document.createElement('div');
   icon.classList.add('studyMouseIcon');
 
@@ -20,12 +18,16 @@ function showIcon(e) {
   icon.innerText = 'S2';
   icon.style.left = x + 'px';
   icon.style.top = y + 'px';
-
   document.body.appendChild(icon);
+  document
+    .getElementsByClassName('studyMouseIcon')[0]
+    .addEventListener('click', () => {
+      console.log('hello');
+    });
 }
 
 function hideIcon() {
-  let icons = document.getElementsByClassName('studyMouseIcon');
+  const icons = document.getElementsByClassName('studyMouseIcon');
   for (let icon of icons) {
     if (icon !== undefined) {
       console.log('hide icon');
@@ -34,7 +36,7 @@ function hideIcon() {
   }
 }
 
-document.addEventListener('mouseup', highlightHandler);
+document.addEventListener('mouseup', selectHandler);
 document.addEventListener('mousedown', hideIcon);
 
 printLine('Study Mouse is always see your DOM');
