@@ -13,16 +13,18 @@ function createIcon(e, text) {
   icon.id = 'studyMouseIcon';
 
   let targetRect = window.getSelection().getRangeAt(0).getBoundingClientRect();
-  let x = e.pageX + window.scrollX - 13;
+  let x = e.x + window.scrollX - 13;
   let y = targetRect.top + targetRect.height + window.scrollY + 1 + 27; // border width 1 + google tranIcon height 27
 
   icon.innerText = 'S2';
   icon.style.left = x + 'px';
   icon.style.top = y + 'px';
 
-  icon.addEventListener('mousedown', () => {
-    console.log('selected Text', text);
+  icon.addEventListener('click', (e) => {
+    console.log('selected', text);
     icon.remove();
+    e.stopPropagation();
+
     createBubble(e, targetRect);
   });
 
@@ -31,11 +33,14 @@ function createIcon(e, text) {
 
 function removeIcon(e) {
   const icon = document.getElementById('studyMouseIcon');
-  console.log('선택된 텍스트', document.getSelection().toString());
-
+  console.log('icon remove?');
   if (icon !== null && document.getSelection().toString() == '') {
-    console.log('hide icon');
+    console.log('yes. remove icon');
     icon.remove();
+    e.stopPropagation();
+  }
+}
+
 function createBubble(e, target) {
   createAnchor(e, target);
 
