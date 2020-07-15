@@ -21,3 +21,11 @@
   position: absolute;
   visibility: hidden;
 }
+#studyMouseBubble {
+  position: absolute;
+  visibility: visible;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px;
+  border: #bbb solid 1px;
+  background-color: #eee;
+  padding: 16px;
+}

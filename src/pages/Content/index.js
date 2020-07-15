@@ -35,6 +35,19 @@ function removeIcon(e) {
   if (icon !== null && document.getSelection().toString() == '') {
     console.log('hide icon');
     icon.remove();
+function createBubble(e, target) {
+  createAnchor(e, target);
+
+  console.log('target', target);
+
+  const bubble = document.createElement('div');
+  bubble.id = 'studyMouseBubble';
+  let x = target.left + target.width / 2 + window.scrollX;
+  let y = target.top + window.scrollY;
+  bubble.style.left = x + window.scrollX - 150 + 'px';
+  bubble.style.top = y + window.scrollY + 27 + 'px';
+}
+
 function createAnchor(e, target) {
   let anchor = document.createElement('div');
   anchor.id = 'studyMouseAnchor';
@@ -58,11 +71,19 @@ function removeAnchor() {
     element.remove();
   }
 }
+
+function removeBubble() {
+  const element = document.getElementById('studyMouseBubble');
+
+  console.log('bubble Anchor?');
+  if (element !== null) {
+    element.remove();
   }
 }
 
 document.addEventListener('mouseup', selectHandler);
-document.addEventListener('mousedown', removeIcon);
+document.addEventListener('click', removeIcon);
 document.addEventListener('click', removeAnchor);
+document.addEventListener('click', removeBubble);
 
 printLine('Study Mouse is always see your DOM');
