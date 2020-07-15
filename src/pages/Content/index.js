@@ -52,6 +52,55 @@ function createBubble(e, target) {
   let y = target.top + window.scrollY;
   bubble.style.left = x + window.scrollX - 150 + 'px';
   bubble.style.top = y + window.scrollY + 27 + 'px';
+
+  const closeBtn = document.createElement('div');
+  closeBtn.style.position = 'absolute';
+  closeBtn.style.top = '2px';
+  closeBtn.style.right = '2px';
+  closeBtn.style.width = '21px';
+  closeBtn.style.height = '21px';
+  closeBtn.style.opacity = 0.4;
+  closeBtn.style.backgroundImage =
+    "url('https://ssl.gstatic.com/ui/v1/icons/common/x_8px.png')";
+
+  bubble.appendChild(closeBtn);
+
+  const sourceLangBox = document.createElement('div');
+
+  const sourceLangTitle = document.createElement('p');
+  sourceLangTitle.style.fontSize = '11px';
+  sourceLangTitle.style.margin = 0;
+  sourceLangTitle.style.padding = '5px 0px';
+  sourceLangTitle.innerText = '영어';
+  sourceLangBox.appendChild(sourceLangTitle);
+
+  const sourceLangContent = document.createElement('p');
+  sourceLangContent.style.fontSize = '18px';
+  sourceLangContent.style.margin = 0;
+  sourceLangContent.style.padding = '5px 0px';
+  sourceLangContent.innerText = 'selected origin language';
+  sourceLangBox.appendChild(sourceLangContent);
+
+  const targetLangBox = document.createElement('div');
+
+  const targetLangTitle = document.createElement('p');
+  targetLangTitle.style.fontSize = '11px';
+  targetLangTitle.style.margin = 0;
+  targetLangTitle.style.padding = '5px 0px';
+  targetLangTitle.innerText = '한국어';
+  targetLangBox.appendChild(targetLangTitle);
+
+  const targetLangContent = document.createElement('p');
+  targetLangContent.style.fontSize = '18px';
+  targetLangContent.style.margin = 0;
+  targetLangContent.style.padding = '5px 0px';
+  targetLangContent.innerText = '선택된 번역 언어';
+  targetLangBox.appendChild(targetLangContent);
+
+  bubble.appendChild(sourceLangBox);
+  bubble.appendChild(targetLangBox);
+
+  document.body.appendChild(bubble);
 }
 
 function createAnchor(e, target) {
