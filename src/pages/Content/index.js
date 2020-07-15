@@ -3,11 +3,11 @@ import { printLine } from './modules/print';
 function selectHandler(e) {
   let text = document.getSelection().toString();
   if (text !== '') {
-    showIcon(e, text);
+    createIcon(e, text);
   }
 }
 
-function showIcon(e, text) {
+function createIcon(e, text) {
   removeIcon(e);
   let icon = document.createElement('div');
   icon.id = 'studyMouseIcon';
@@ -23,6 +23,7 @@ function showIcon(e, text) {
   icon.addEventListener('mousedown', () => {
     console.log('selected Text', text);
     icon.remove();
+    createBubble(e, targetRect);
   });
 
   document.body.appendChild(icon);
