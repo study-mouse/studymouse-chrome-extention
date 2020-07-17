@@ -23,11 +23,10 @@ function createIcon(e, text) {
   icon.style.top = y + 'px';
 
   icon.addEventListener('click', (e) => {
-    console.log('selected', text);
     icon.remove();
     e.stopPropagation();
 
-    createBubble(e, targetRect);
+    createBubble(e, targetRect, text);
   });
 
   document.body.appendChild(icon);
@@ -43,32 +42,42 @@ function removeIcon(e) {
   }
 }
 
-function createBubble(e, target) {
-  createAnchor(e, target);
-
+async function searchWord(text) {
   var myHeaders = new Headers();
-  myHeaders.append('X-Naver-Client-Id', 'UZht9dLWgUBfijgBOK1S');
-  myHeaders.append('X-Naver-Client-Secret', 'zqwA2sEYX6');
-  myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
-
-  var urlencoded = new URLSearchParams();
-  urlencoded.append('source', 'ko');
-  urlencoded.append('target', 'en');
-  urlencoded.append('text', '여기는 대한민국 서울입니다.');
+  myHeaders.append('Cookie', 'SameSite=None; Secure'); // TODO: coockie Same origin issue
 
   var requestOptions = {
-    method: 'POST',
+    method: 'GET',
     headers: myHeaders,
-    body: urlencoded,
     redirect: 'follow',
   };
 
-  fetch('https://openapi.naver.com/v1/papago/n2mt', requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+  const response = await fetch(
+    `https://endic.naver.com/searchAssistDict.nhn?query=${text}`,
+    requestOptions
+  );
+  const htmltext = await response.text();
+  const dom = document.createElement('html');
+  dom.innerHTML = htmltext;
 
-  console.log('target', target);
+  const boxesWrapper = dom.getElementsByClassName('all_con')[0];
+  const boxes = boxesWrapper.getElementsByTagName('div');
+
+  let contexts = [];
+
+  for (let box of boxes) {
+    for (let dt of box.getElementsByTagName('dt')) {
+      if (dt.classList.contains('last')) continue;
+      let context = {
+        partOfSpeech: box.getElementsByTagName('h4')[0].innerText,
+        mean: dt.innerText,
+      };
+      contexts.push(context);
+    }
+  }
+
+  return contexts;
+}
 
   const bubble = document.createElement('div');
   bubble.id = 'studyMouseBubble';
