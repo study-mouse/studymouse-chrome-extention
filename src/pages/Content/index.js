@@ -79,13 +79,29 @@ async function searchWord(text) {
   return contexts;
 }
 
+async function createBubble(e, target, text) {
+  createAnchor(e, target);
+  let contexts = await searchWord(text);
+
   const bubble = document.createElement('div');
   bubble.id = 'studyMouseBubble';
-  let x = target.left + target.width / 2 + window.scrollX;
+  let x = target.left + window.scrollX + target.width / 2;
   let y = target.top + window.scrollY;
-  bubble.style.left = x + window.scrollX - 150 + 'px';
-  bubble.style.top = y + window.scrollY + 27 + 'px';
+  bubble.style.left = x + 'px';
+  bubble.style.top = y + target.height + 'px';
+  bubble.style.maxWidth = '300px';
 
+  // 버블 내를 클릭하면 닫히지 않습니다.
+  bubble.addEventListener('mouseup', (e) => {
+    console.log('buble click!!');
+    e.stopPropagation();
+  });
+  bubble.addEventListener('click', (e) => {
+    console.log('buble click!!');
+    e.stopPropagation();
+  });
+
+  // 버블 내용을 채웁니다.
   const closeBtn = document.createElement('div');
   closeBtn.style.position = 'absolute';
   closeBtn.style.top = '2px';
@@ -101,37 +117,80 @@ async function searchWord(text) {
   const sourceLangBox = document.createElement('div');
 
   const sourceLangTitle = document.createElement('p');
-  sourceLangTitle.style.fontSize = '11px';
-  sourceLangTitle.style.margin = 0;
-  sourceLangTitle.style.padding = '5px 0px';
+  sourceLangTitle.classList.add('studyMouseLangTitle');
   sourceLangTitle.innerText = '영어';
   sourceLangBox.appendChild(sourceLangTitle);
 
   const sourceLangContent = document.createElement('p');
-  sourceLangContent.style.fontSize = '18px';
-  sourceLangContent.style.margin = 0;
-  sourceLangContent.style.padding = '5px 0px';
-  sourceLangContent.innerText = 'selected origin language';
+  sourceLangContent.classList.add('studyMouseMean');
+  sourceLangContent.innerText = text;
   sourceLangBox.appendChild(sourceLangContent);
 
   const targetLangBox = document.createElement('div');
 
   const targetLangTitle = document.createElement('p');
-  targetLangTitle.style.fontSize = '11px';
-  targetLangTitle.style.margin = 0;
-  targetLangTitle.style.padding = '5px 0px';
+  targetLangTitle.classList.add('studyMouseLangTitle');
   targetLangTitle.innerText = '한국어';
   targetLangBox.appendChild(targetLangTitle);
 
+  const targetContainer = document.createElement('div');
+  targetContainer.id = 'targetContainer';
+
+  const pOS = document.createElement('span'); // 타켓 품사
+  pOS.id = 'pOS';
+  pOS.innerText = contexts[0].partOfSpeech;
+
   const targetLangContent = document.createElement('p');
-  targetLangContent.style.fontSize = '18px';
-  targetLangContent.style.margin = 0;
-  targetLangContent.style.padding = '5px 0px';
-  targetLangContent.innerText = '선택된 번역 언어';
-  targetLangBox.appendChild(targetLangContent);
+  targetLangContent.classList.add('studyMouseMean');
+  targetLangContent.style.fontWeight = 500;
+  targetLangContent.innerText = contexts[0].mean;
+
+  targetContainer.appendChild(pOS);
+  targetContainer.appendChild(targetLangContent);
+  targetLangBox.appendChild(targetContainer);
+
+  const contextContainer = document.createElement('div');
+  contextContainer.id = 'contextContainer';
+
+  for (const [index, context] of contexts.entries()) {
+    if (index === 0) continue;
+    const fullContent = document.createElement('div');
+    fullContent.style.padding = '3px 0';
+
+    const contextPoS = document.createElement('span');
+    contextPoS.id = 'pOS';
+    contextPoS.innerText = context.partOfSpeech;
+
+    const contextMean = document.createElement('span');
+    contextMean.innerText = context.mean;
+
+    fullContent.appendChild(contextPoS);
+    fullContent.appendChild(contextMean);
+
+    contextContainer.appendChild(fullContent);
+  }
+
+  const buttonContainer = document.createElement('div');
+  buttonContainer.id = 'buttonContainer';
+
+  const dashboardBtn = document.createElement('a');
+  dashboardBtn.id = 'dashboardBtn';
+  dashboardBtn.target = '_blank';
+  dashboardBtn.rel = 'noopener noreferrer';
+  dashboardBtn.href = 'https://naver.com';
+  dashboardBtn.innerText = 'Go to dashboard >';
+
+  const saveBtn = document.createElement('a');
+  saveBtn.id = 'saveBtn';
+  saveBtn.innerText = 'Save';
+
+  buttonContainer.appendChild(dashboardBtn);
+  buttonContainer.appendChild(saveBtn);
 
   bubble.appendChild(sourceLangBox);
   bubble.appendChild(targetLangBox);
+  bubble.appendChild(contextContainer);
+  bubble.appendChild(buttonContainer);
 
   document.body.appendChild(bubble);
 }
