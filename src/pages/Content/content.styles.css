@@ -25,7 +25,53 @@
   position: absolute;
   visibility: visible;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px;
-  border: #bbb solid 1px;
-  background-color: #eee;
+  border: #4d1f8c solid 1px;
+  background-color: #fff;
+  border-radius: 5px;
   padding: 16px;
+  z-index: 20200718;
+  color: #000;
+}
+.studyMouseLangTitle {
+  font-size: 11px;
+  margin: 0;
+  padding: 5px 0px;
+  color: #888;
+}
+.studyMouseMean {
+  display: inline;
+  font-size: 18px;
+  margin: 0;
+  padding: 5px 0px;
+  font-weight: 900;
+}
+#targetContainer {
+  display: flex;
+  align-items: center;
+}
+#dashboardBtn {
+  cursor: pointer;
+  color: #888;
+  font-weight: 600;
+  margin-right: 20px;
+  text-decoration: none;
+}
+#saveBtn {
+  cursor: pointer;
+  font-weight: 900;
+  text-decoration: none;
+}
+#buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 14px;
+}
+#pOS {
+  font-size: 14px;
+  color: #888;
+  margin-right: 5px;
+}
+#contextContainer {
+  padding-left: 10px;
 }
