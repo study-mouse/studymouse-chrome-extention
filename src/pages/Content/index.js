@@ -18,7 +18,6 @@ function createIcon(e, text) {
   let x = e.x + window.scrollX - 13;
   let y = targetRect.top + targetRect.height + window.scrollY + 1 + 27; // border width 1 + google tranIcon height 27
 
-  icon.innerText = 'S2';
   icon.style.left = x + 'px';
   icon.style.top = y + 'px';
 
@@ -28,6 +27,10 @@ function createIcon(e, text) {
 
     createBubble(e, targetRect, text);
   });
+
+  const iconImg = document.createElement('div');
+  iconImg.id = 'studyMouseIconImg';
+  icon.appendChild(iconImg);
 
   document.body.appendChild(icon);
 }

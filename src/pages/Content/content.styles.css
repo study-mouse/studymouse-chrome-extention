@@ -2,9 +2,9 @@
   position: absolute;
   cursor: pointer;
   z-index: 2147483647;
-  background-color: #f8f8f8;
+  background-color: #8025fe;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #8025fe;
   padding: 3px;
   width: 19px;
   height: 19px;
@@ -15,7 +15,13 @@
 }
 #studyMouseIcon:hover {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
-  border: 1px solid #bbb;
+  border: 1px solid #ac76f8;
+}
+#studyMouseIconImg {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFEAAABRCAYAAACqj0o2AAAAAXNSR0IArs4c6QAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAUaADAAQAAAABAAAAUQAAAACo7oyGAAAD3ElEQVR4Ae2bgVXbMBCGk07ACGKDsIGZoGxAmAAyQcwEhAkaJqAbxJmAdILABIQJ2v/yrBcUK5Is2Y79+uu9e5LupPPdFylWqDoasZAACZAACZAACZAACZAACZAACZAACbgIjF1GbfuLotst1O/wKbIpZT0ej6XvLQgrx6B5ObBAvYOInwI+1qj7UwRix2WL5z1BJi4KsOcQV3mF8RZy4fLTic0VZQe2FZ6R2RKF3gdRh/eJxhzSCswftuB6phOAKwAQUZGxCbwcsoWP+0gfJ6cNAaIOPkMjFYLAXADkG0Sh3UgZEkSdsECQ77qUrTmBMwF5o52m1EOEKPlK8itICkiZKx/GFHVS6cMRJymBhibPcCRaxPoixAO5O4BcHrrhLUI0WV0DZGGq/D1CNBnt0L0ESKmDy1BfLMEJ1hy4f9nUnDMixCqxrO7Rh9u5ClE079jSl3ZTVcuVWGUiGlXn/MiVaIco2uDVyJV4GqKsxslp88FCiAcWttbUpjzWcTsfEzH7QVuaK9GEdtyTLa2Olcd9QjwmUu17vxfPCfER8T5XY66l+YPRM4jUbZVeQyxwoH1A5leQr0gCO/hYQCTRl0gfvmnKN+CcK3EfGwBs0BCYqUV8fKQ6scxXFp2hOjvEMprfRlQRHXwYO0wrIqYmTwk94mTJT6o62JSJ7y14C8Y8Q7bzRrsu36RK9xuqjWc05JNuSIAESIAESIAESIAE/gMCoYftNm/KymFZfm1ILbLGAfodtbfgcJ1jkNyU1fN1Lb/L114HXQ5AsF2XLR74BFGuPGHPIa4iF5Z+unx0ZnNF2YFthWdktmSh90HU4X2iMYdc2Pyk6vryBwhXHhmMKwCQVaVcAx02gZdDtvBx6xgXZRoCRJ3YDRpvgJByXVhgLuFjBVHacWo9JIiSq0Bo4qZsBj/ygcgHk1yGBlEnLMnzpqym0ZP6DkeiZWwsQ12JsfmemvcLW3t6yujT9+Gw7YuxS/s1VmRR94GEaBLboXsJkFIHF25nE9UFuq+myt8jxCqjDN+PWVV9WsPtbGcTdJFJT+VK1CTMWtV5W3MlmvC+94JXI1fid2xmW1bjxFTZe4Ro56K1U91w1dzOLjqBl9+5Et0QZUsr95AR/0eVDxDs3u/Fc67ERwT4HJCEa4jckJ1BpG6r9Bqi/IvcAzK/gnxFEpBrbwuIJPoS6cM3TfkGnHMl7mMDgA0auS/QALt8IB8B4+oOUb4JZ4dYBrj0Beqz48PYYUzhG9eGPfSIk7Xw8E2Z+N513R/9ZTzGLdbyTaoajtV4RsO+6Y4ESIAESIAESIAESIAESMBF4B9fHcBss5u7ngAAAABJRU5ErkJggg==');
+  width: 19px;
+  height: 19px;
+  background-size: contain;
 }
 #studyMouseAnchor {
   position: absolute;
@@ -58,6 +64,7 @@
 }
 #saveBtn {
   cursor: pointer;
+  color: #4d1f8c;
   font-weight: 900;
   text-decoration: none;
 }
