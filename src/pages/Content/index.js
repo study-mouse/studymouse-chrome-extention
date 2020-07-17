@@ -1,8 +1,10 @@
 import { printLine } from './modules/print';
 
 function selectHandler(e) {
-  let text = document.getSelection().toString();
-  if (text !== '') {
+  let text = document.getSelection().toString().trim();
+  let textArr = text.split(' ');
+
+  if (textArr[0] !== '' && textArr.length == 1) {
     createIcon(e, text);
   }
 }
