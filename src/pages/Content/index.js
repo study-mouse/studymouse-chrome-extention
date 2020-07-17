@@ -70,7 +70,7 @@ async function searchWord(text) {
       if (dt.classList.contains('last')) continue;
       let context = {
         partOfSpeech: box.getElementsByTagName('h4')[0].innerText,
-        mean: dt.innerText,
+        mean: dt.innerText.split('.')[1],
       };
       contexts.push(context);
     }
