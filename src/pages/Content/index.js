@@ -44,6 +44,28 @@ function removeIcon(e) {
 function createBubble(e, target) {
   createAnchor(e, target);
 
+  var myHeaders = new Headers();
+  myHeaders.append('X-Naver-Client-Id', 'UZht9dLWgUBfijgBOK1S');
+  myHeaders.append('X-Naver-Client-Secret', 'zqwA2sEYX6');
+  myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+
+  var urlencoded = new URLSearchParams();
+  urlencoded.append('source', 'ko');
+  urlencoded.append('target', 'en');
+  urlencoded.append('text', '여기는 대한민국 서울입니다.');
+
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: urlencoded,
+    redirect: 'follow',
+  };
+
+  fetch('https://openapi.naver.com/v1/papago/n2mt', requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log('error', error));
+
   console.log('target', target);
 
   const bubble = document.createElement('div');
