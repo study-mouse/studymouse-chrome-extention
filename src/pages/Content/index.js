@@ -15,8 +15,9 @@ function createIcon(e, text) {
   icon.id = 'studyMouseIcon';
 
   let targetRect = window.getSelection().getRangeAt(0).getBoundingClientRect();
-  let x = e.x + window.scrollX - 13;
-  let y = targetRect.top + targetRect.height + window.scrollY + 1 + 27; // border width 1 + google tranIcon height 27
+  console.log('targetRect.width ', targetRect.width);
+  let x = targetRect.left + window.scrollX;
+  let y = targetRect.top + targetRect.height + window.scrollY + 5;
 
   icon.style.left = x + 'px';
   icon.style.top = y + 'px';
@@ -73,7 +74,7 @@ async function searchWord(text) {
       if (dt.classList.contains('last')) continue;
       let context = {
         partOfSpeech: box.getElementsByTagName('h4')[0].innerText,
-        mean: dt.innerText.split('.')[1],
+        mean: dt.innerText.split('.')[1].trim(),
       };
       contexts.push(context);
     }
@@ -183,8 +184,46 @@ async function createBubble(e, target, text) {
   dashboardBtn.href = 'https://naver.com';
   dashboardBtn.innerText = 'Go to dashboard >';
 
-  const saveBtn = document.createElement('a');
+  const saveBtn = document.createElement('div');
   saveBtn.id = 'saveBtn';
+  saveBtn.onclick = () => {
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    var raw = JSON.stringify({
+      description: contexts,
+      english: text,
+      korean: contexts[0].mean,
+      url: document.URL,
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    fetch(
+      'https://studymouse-mjung1798.endpoint.ainize.ai/api/word',
+      requestOptions
+    )
+      .then((result) => {
+        console.log(result.status);
+        if (result.status) {
+          alert(
+            '현재 스터디마우스의 서버 상태가 원활하지 않습니다. 잠시 후 다시 시도하세요.',
+            error
+          );
+        }
+      })
+      .catch((error) => {
+        alert(
+          '현재 스터디마우스의 서버 상태가 원활하지 않습니다. 잠시 후 다시 시도하세요.',
+          error
+        );
+      });
+  };
   saveBtn.innerText = 'Save';
 
   buttonContainer.appendChild(dashboardBtn);
